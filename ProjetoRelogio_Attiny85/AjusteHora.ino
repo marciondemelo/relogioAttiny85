@@ -68,6 +68,7 @@ void AlterarCor() {
         delay(500);
       }
     }
+    
     FitaLed.setPixelColor(14, FitaLed.Color(255, 255, 255));
     FitaLed.show();
     
