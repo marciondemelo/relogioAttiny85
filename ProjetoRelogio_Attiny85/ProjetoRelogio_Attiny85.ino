@@ -1,5 +1,5 @@
-#include <TinyWireM.h>
-//#include <Wire.h>
+//#include <TinyWireM.h>
+#include <Wire.h>
 #include <Adafruit_NeoPixel.h>
 
 #include <DS3232RTC.h>             //http://github.com/JChristensen/DS3232RTC
@@ -53,13 +53,13 @@ void setup()
   pinMode(Btn01, INPUT_PULLUP);
   pinMode(Btn02, INPUT_PULLUP);
 
-  //  Wire.begin();
+    Wire.begin();
   Clock.begin();
   FitaLed.begin();
 
   setSyncProvider(Clock.get);                 // the function to get the time from the RTC
-  tm.Hour = 22;
-  tm.Minute = 11;
+  tm.Hour = hour();
+  tm.Minute = minute();
   t = makeTime(tm);
   // setTime(22, 51, 0, 22, 3, 2023);            // Initial time & date setup of RTC
   Clock.set(t);                           // Update the RTC with current time
