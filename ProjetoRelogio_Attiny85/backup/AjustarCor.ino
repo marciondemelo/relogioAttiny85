@@ -1,7 +1,9 @@
 
+int defineColor();
+void mudaCor(int positionLed, int indiceCor);
+void alteraCor();
 
-
-void AlterarCor() {
+void alteraCor() {
   FitaLed.setPixelColor(14, FitaLed.Color(255, 255, 255));
   FitaLed.show();
   int indicePeriodo = 0;
@@ -17,21 +19,21 @@ void AlterarCor() {
 
     /*se o botao 1 for precionado novamente sera
       anternado entre as opcoes de ajuste de cores de 0 a 3*/
-    if (Btn01IsPress() == 0) {
-      tempo = millis() + 10000;
-      delay(200);
-      while (Btn01IsPress() == 0);
-      if (indicePeriodo == 3) {
-        FitaLed.setPixelColor(14, FitaLed.Color(0, 255, 255));
-        FitaLed.show();
-        indicePeriodo = 0;
-        delay(500);
-      } else {
-        FitaLed.setPixelColor(14, FitaLed.Color(0, 0, 255));
-        FitaLed.show();
-        indicePeriodo++;
-        delay(500);
-      }
+    // if (Btn01IsPress() == 0) {
+    //   tempo = millis() + 10000;
+    //   delay(200);
+    //   while (Btn01IsPress() == 0);
+    //   if (indicePeriodo == 3) {
+    //     FitaLed.setPixelColor(14, FitaLed.Color(0, 255, 255));
+    //     FitaLed.show();
+    //     indicePeriodo = 0;
+    //     delay(500);
+    //   } else {
+    //     FitaLed.setPixelColor(14, FitaLed.Color(0, 0, 255));
+    //     FitaLed.show();
+    //     indicePeriodo++;
+    //     delay(500);
+    //   }
     }
     
     FitaLed.setPixelColor(14, FitaLed.Color(255, 255, 255));
@@ -97,4 +99,33 @@ void AlterarCor() {
   }
   FitaLed.setPixelColor(14, FitaLed.Color(0, 0, 0));
   FitaLed.show();
+}
+
+  // Passe a posição do array
+void mudaCor(int positionLed, int indiceCor) {
+  
+  // Verifique se a posição está dentro dos limites do array
+  if (indiceCor >= 0 && indiceCor < sizeof(cores)/sizeof(cores[0])) {
+    
+    // Se a posição estiver dentro dos limites, atribua a cor correspondente ao LED
+    FitaLed.setPixelColor(positionLed, FitaLed.Color(cores[indiceCor][0], cores[indiceCor][1], cores[indiceCor][2]));
+  }
+}
+
+
+int defineColor() {
+  int Hour = hour();
+
+  int color;
+  if (Hour >= 18 && Hour <= 23) {
+    color = colorNoite;
+  } else if (Hour >= 0 && Hour <= 5) {
+    color = colorMadrugada;
+  } else if (Hour >= 6 && Hour <= 11) {
+    color = colorManha;
+  } else {
+    color = colorTarde;
+  }
+
+  return color;
 }
